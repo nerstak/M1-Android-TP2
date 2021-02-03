@@ -3,6 +3,7 @@ package com.example.flickrapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,8 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 
 import java.util.List;
 import java.util.Vector;
@@ -58,12 +66,37 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_list_layout, parent, false);
+                //convertView = LayoutInflater.from(context).inflate(R.layout.item_list_layout, parent, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.bitmaplayout, parent, false);
             }
+            // Get a RequestQueue
+            RequestQueue queue = MySingleton.getInstance(parent.getContext()).getRequestQueue();
 
+            // Get data and layout
             String data = (String) getItem(position);
-            TextView urlView = convertView.findViewById(R.id.text_view_url);
-            urlView.setText(data);
+            ImageView imageView = convertView.findViewById(R.id.bitmap_image_view);
+
+            // Request
+            ImageRequest request = new ImageRequest(
+                    data,
+                    new Response.Listener<Bitmap>() {
+                        @Override
+                        public void onResponse(Bitmap response) {
+                            imageView.setImageBitmap(response);
+
+                        }}
+                    , 0,
+                    0, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.RGB_565,
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(ListActivity.this,"Some Thing Goes Wrong", Toast.LENGTH_SHORT).show();
+                            error.printStackTrace();
+
+                    }});
+
+            queue.add(request);
+
 
             return convertView;
         }
