@@ -31,8 +31,8 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        // Linking listView & adapter
         MyAdapter myAdapter = new MyAdapter(this);
-
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(myAdapter);
 
@@ -43,10 +43,14 @@ public class ListActivity extends AppCompatActivity {
             search = new String(extras.getString("search"));
         }
 
+        // Calling API
         AsyncFlickrJSONDataForList asyncJSON = new AsyncFlickrJSONDataForList(myAdapter, search);
         asyncJSON.execute();
     }
 
+    /**
+     * Adapter for list of items
+     */
     public class MyAdapter extends BaseAdapter {
         Context context;
         Vector<String> vector = new Vector<>();
@@ -83,7 +87,7 @@ public class ListActivity extends AppCompatActivity {
             String data = (String) getItem(position);
             ImageView imageView = convertView.findViewById(R.id.bitmap_image_view);
 
-            // Request
+            // Generating request
             ImageRequest request = new ImageRequest(
                     data,
                     new Response.Listener<Bitmap>() {
@@ -102,6 +106,7 @@ public class ListActivity extends AppCompatActivity {
 
                     }});
 
+            // Adding request to queue
             queue.add(request);
 
 

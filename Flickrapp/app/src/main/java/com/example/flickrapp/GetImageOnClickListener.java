@@ -3,6 +3,9 @@ package com.example.flickrapp;
 import android.view.View;
 import android.widget.ImageView;
 
+/**
+ * Download ONE image on click
+ */
 public class GetImageOnClickListener implements View.OnClickListener {
     private ImageView imageView;
     private String search;

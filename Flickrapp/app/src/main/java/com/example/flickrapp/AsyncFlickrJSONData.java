@@ -16,6 +16,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Download JSON for one image
+ */
 public class AsyncFlickrJSONData extends AsyncTask<String, Void, JSONObject> {
     private final WeakReference<ImageView> imageViewWeakReference;
     private final String search;

@@ -16,6 +16,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Download JSON for list of images
+ */
 public class AsyncFlickrJSONDataForList extends AsyncTask<String, Void, JSONObject> {
     private final ListActivity.MyAdapter myAdapter;
     private final String search;
