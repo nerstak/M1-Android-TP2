@@ -36,7 +36,14 @@ public class ListActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(myAdapter);
 
-        AsyncFlickrJSONDataForList asyncJSON = new AsyncFlickrJSONDataForList(myAdapter);
+        // Intent
+        String search = "";
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            search = new String(extras.getString("search"));
+        }
+
+        AsyncFlickrJSONDataForList asyncJSON = new AsyncFlickrJSONDataForList(myAdapter, search);
         asyncJSON.execute();
     }
 

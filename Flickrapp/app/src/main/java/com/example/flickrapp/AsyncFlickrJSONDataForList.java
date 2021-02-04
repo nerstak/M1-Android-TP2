@@ -18,16 +18,18 @@ import java.net.URL;
 
 public class AsyncFlickrJSONDataForList extends AsyncTask<String, Void, JSONObject> {
     private final ListActivity.MyAdapter myAdapter;
+    private final String search;
 
-    public AsyncFlickrJSONDataForList(ListActivity.MyAdapter myAdapter) {
+    public AsyncFlickrJSONDataForList(ListActivity.MyAdapter myAdapter, String search) {
         this.myAdapter = myAdapter;
+        this.search = search;
     }
 
     @Override
     protected JSONObject doInBackground(String... strings) {
         URL url = null;
         try {
-            url = new URL("https://www.flickr.com/services/feeds/photos_public.gne?tags=cats&format=json&nojsoncallback=1");
+            url = new URL("https://www.flickr.com/services/feeds/photos_public.gne?tags=" + search + "&format=json&nojsoncallback=1");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
                 return handleResult(new BufferedInputStream(urlConnection.getInputStream()));
