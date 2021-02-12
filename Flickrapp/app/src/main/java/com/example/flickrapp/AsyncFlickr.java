@@ -17,7 +17,7 @@ import java.net.URL;
  * Mother class for Flicker API
  */
 public abstract class AsyncFlickr  extends AsyncTask<String, Void, JSONObject> {
-    protected Boolean cache;
+    protected Boolean cache = true;
     protected String urlBasis;
     protected String urlParameters = "";
 

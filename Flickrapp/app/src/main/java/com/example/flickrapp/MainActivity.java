@@ -58,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
             Location localisation = manager.getLastKnownLocation("gps");
             Log.i("Karsto", "Latitude " + localisation.getLatitude());
             Log.i("Karsto", "Longitude " + localisation.getLongitude());
+
+            AsyncFlickrLocation asyncTask = new AsyncFlickrLocation(findViewById(R.id.image_view_geo),
+                    checkBox.isChecked(),
+                    localisation.getLatitude(),
+                    localisation.getLongitude(),
+                    getString(R.string.CONSUMER_KEY)
+                    );
+            asyncTask.execute();
         } else {
             Log.i("Karsto", "Permission error");
             TextView error = (TextView) findViewById(R.id.text_view_error);
