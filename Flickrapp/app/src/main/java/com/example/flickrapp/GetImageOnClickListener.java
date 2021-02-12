@@ -1,6 +1,7 @@
 package com.example.flickrapp;
 
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 /**
@@ -8,16 +9,16 @@ import android.widget.ImageView;
  */
 public class GetImageOnClickListener implements View.OnClickListener {
     private ImageView imageView;
-    private String search;
+    private EditText search;
 
-    public GetImageOnClickListener(ImageView imageView, String search) {
+    public GetImageOnClickListener(ImageView imageView, EditText search) {
         this.imageView = imageView;
         this.search = search;
     }
 
     @Override
     public void onClick(View v) {
-        AsyncFlickrJSONData task = new AsyncFlickrJSONData(imageView, search);
+        AsyncFlickrJSONData task = new AsyncFlickrJSONData(imageView, search.getText().toString());
         task.execute();
     }
 }

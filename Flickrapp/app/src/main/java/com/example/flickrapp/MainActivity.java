@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,13 +18,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EditText searchBar = ((EditText) findViewById(R.id.search_bar));
         Button buttonGetImage = (Button) findViewById(R.id.button_get_image);
         buttonGetImage.setOnClickListener(
                 // Image listener
                 new GetImageOnClickListener(
                         (ImageView) findViewById(R.id.image_view),
-                        ((EditText) findViewById(R.id.search_bar)).getText().toString()
+                        searchBar
                 ));
+
+
 
         Button buttonSendToList = (Button) findViewById(R.id.button_sendToList);
         buttonSendToList.setOnClickListener(new View.OnClickListener() {
