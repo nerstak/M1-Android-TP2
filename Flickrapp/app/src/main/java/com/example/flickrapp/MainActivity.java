@@ -1,16 +1,23 @@
 package com.example.flickrapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 ));
 
 
-
         Button buttonSendToList = (Button) findViewById(R.id.button_sendToList);
         buttonSendToList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,5 +49,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(listActivity);
             }
         });
+
+
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            Location localisation = manager.getLastKnownLocation("gps");
+            Log.i("Karsto", "Latitude " + localisation.getLatitude());
+            Log.i("Karsto", "Longitude " + localisation.getLongitude());
+        } else {
+            Log.i("Karsto", "Permission error");
+        }
     }
 }
