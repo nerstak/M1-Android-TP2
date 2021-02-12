@@ -5,15 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -21,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 
-import java.util.List;
 import java.util.Vector;
 
 public class ListActivity extends AppCompatActivity {
@@ -38,13 +34,15 @@ public class ListActivity extends AppCompatActivity {
 
         // Intent
         String search = "";
+        Boolean caching = false;
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             search = new String(extras.getString("search"));
+            caching = extras.getBoolean("caching");
         }
 
         // Calling API
-        AsyncFlickrJSONDataForList asyncJSON = new AsyncFlickrJSONDataForList(myAdapter, search);
+        AsyncFlickrJSONDataForList asyncJSON = new AsyncFlickrJSONDataForList(myAdapter, search, caching);
         asyncJSON.execute();
     }
 

@@ -2,4 +2,5 @@
     <string name="app_name">Flickrapp</string>
     <string name="get_image">Get an image</string>
     <string name="get_list">Get list of images</string>
+    <string name="caching_images">Caching images</string>
 </resources>

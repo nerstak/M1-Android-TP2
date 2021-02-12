@@ -2,7 +2,6 @@ package com.example.flickrapp;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +10,6 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,10 +20,13 @@ import java.net.URL;
 public class AsyncFlickrJSONDataForList extends AsyncTask<String, Void, JSONObject> {
     private final ListActivity.MyAdapter myAdapter;
     private final String search;
+    private final Boolean cache;
 
-    public AsyncFlickrJSONDataForList(ListActivity.MyAdapter myAdapter, String search) {
+
+    public AsyncFlickrJSONDataForList(ListActivity.MyAdapter myAdapter, String search, Boolean cache) {
         this.myAdapter = myAdapter;
         this.search = search;
+        this.cache = cache;
     }
 
     @Override
@@ -34,6 +35,7 @@ public class AsyncFlickrJSONDataForList extends AsyncTask<String, Void, JSONObje
         try {
             url = new URL("https://www.flickr.com/services/feeds/photos_public.gne?tags=" + search + "&format=json&nojsoncallback=1");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setUseCaches(cache);
             try {
                 return handleResult(new BufferedInputStream(urlConnection.getInputStream()));
             } finally {

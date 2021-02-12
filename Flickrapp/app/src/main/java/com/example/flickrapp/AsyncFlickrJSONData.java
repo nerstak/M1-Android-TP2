@@ -22,10 +22,12 @@ import java.net.URL;
 public class AsyncFlickrJSONData extends AsyncTask<String, Void, JSONObject> {
     private final WeakReference<ImageView> imageViewWeakReference;
     private final String search;
+    private final Boolean cache;
 
-    public AsyncFlickrJSONData(ImageView imageView, String search) {
+    public AsyncFlickrJSONData(ImageView imageView, String search, Boolean cache) {
         this.imageViewWeakReference = new WeakReference<ImageView>(imageView);
         this.search = search;
+        this.cache = cache;
     }
 
     @Override
@@ -34,6 +36,7 @@ public class AsyncFlickrJSONData extends AsyncTask<String, Void, JSONObject> {
         try {
             url = new URL("https://www.flickr.com/services/feeds/photos_public.gne?tags=" + search + "&format=json&nojsoncallback=1");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setUseCaches(cache);
             try {
                 return handleResult(new BufferedInputStream(urlConnection.getInputStream()));
             } finally {

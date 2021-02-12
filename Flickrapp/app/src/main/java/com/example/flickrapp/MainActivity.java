@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -18,13 +19,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText searchBar = ((EditText) findViewById(R.id.search_bar));
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox_caching);
+        EditText searchBar = (EditText) findViewById(R.id.search_bar);
         Button buttonGetImage = (Button) findViewById(R.id.button_get_image);
         buttonGetImage.setOnClickListener(
                 // Image listener
                 new GetImageOnClickListener(
                         (ImageView) findViewById(R.id.image_view),
-                        searchBar
+                        searchBar,
+                        checkBox
                 ));
 
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent listActivity = new Intent(getApplicationContext(), ListActivity.class);
                 // Sending search value
                 listActivity.putExtra("search", ((EditText) findViewById(R.id.search_bar)).getText().toString());
+                listActivity.putExtra("caching", checkBox.isChecked());
                 startActivity(listActivity);
             }
         });
