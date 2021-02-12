@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Karsto", "Longitude " + localisation.getLongitude());
         } else {
             Log.i("Karsto", "Permission error");
+            TextView error = (TextView) findViewById(R.id.text_view_error);
+            error.setText(R.string.geolocation_error);
         }
     }
 }
