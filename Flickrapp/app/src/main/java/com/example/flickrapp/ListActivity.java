@@ -20,6 +20,9 @@ import com.android.volley.toolbox.ImageRequest;
 
 import java.util.Vector;
 
+/**
+ * Activity containing a list of images
+ */
 public class ListActivity extends AppCompatActivity {
 
     @Override

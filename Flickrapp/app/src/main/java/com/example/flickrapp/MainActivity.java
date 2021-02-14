@@ -20,6 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Main activity of the application
+ * Can download one image based on search bar, and auto-download one based on location
+ * Can redirect to ListActivity
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

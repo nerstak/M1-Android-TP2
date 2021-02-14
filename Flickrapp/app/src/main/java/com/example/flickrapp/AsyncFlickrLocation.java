@@ -8,6 +8,9 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Download one image based on location of user
+ */
 public class AsyncFlickrLocation extends AsyncFlickr
 {
     private final WeakReference<ImageView> imageViewWeakReference;
