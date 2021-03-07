@@ -4,4 +4,5 @@
     <string name="get_list">Get list of images</string>
     <string name="caching_images">Caching images</string>
     <string name="geolocation_error">Geolocation has been disabled</string>
+    <string name="maps_location">Please open Maps and pin your location</string>
 </resources>

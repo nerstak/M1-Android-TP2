@@ -58,21 +58,30 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED //&&
+//                ((LocationManager) getSystemService(LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)
+        ) {
             LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
             Location localisation = manager.getLastKnownLocation("gps");
-            Log.i("Karsto", "Latitude " + localisation.getLatitude());
-            Log.i("Karsto", "Longitude " + localisation.getLongitude());
 
-            AsyncFlickrLocation asyncTask = new AsyncFlickrLocation(findViewById(R.id.image_view_geo),
-                    checkBox.isChecked(),
-                    localisation.getLatitude(),
-                    localisation.getLongitude(),
-                    getString(R.string.CONSUMER_KEY)
-                    );
-            asyncTask.execute();
+            if(localisation != null) {
+                Log.i("Karsto", "Latitude " + localisation.getLatitude());
+                Log.i("Karsto", "Longitude " + localisation.getLongitude());
+
+                AsyncFlickrLocation asyncTask = new AsyncFlickrLocation(findViewById(R.id.image_view_geo),
+                        checkBox.isChecked(),
+                        localisation.getLatitude(),
+                        localisation.getLongitude(),
+                        getString(R.string.CONSUMER_KEY)
+                );
+                asyncTask.execute();
+            } else {
+                TextView error = (TextView) findViewById(R.id.text_view_error);
+                error.setText(R.string.maps_location);
+            }
+
         } else {
-            Log.i("Karsto", "Permission error");
+            Log.i("Karsto", "Permission or GPS error");
             TextView error = (TextView) findViewById(R.id.text_view_error);
             error.setText(R.string.geolocation_error);
         }
